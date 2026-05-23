@@ -25,7 +25,10 @@ programa
 		escreva("Digite a sua opção: ")
 		
 		leia(opcao)
-
+		 enquanto(opcao<1 ou opcao>3){
+		  escreva("opcao invalida, Digite [1] para Jogar, Digite [2] para ver placar, Digite [3] para sair ")
+		  leia(opcao)
+			}
 		escolha(opcao)
 		{
 			caso 1:
@@ -40,8 +43,6 @@ programa
 
 			pare
 
-			caso contrario:
-			
 		}
 	}
 
