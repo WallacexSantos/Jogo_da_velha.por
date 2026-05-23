@@ -48,10 +48,8 @@ programa
 
 	funcao jogar(cadeia nome_jogador_1, cadeia nome_jogador_2)
 	{
-		escreva("\nIniciando jogo entre ")
-		escreva(nome_jogador_1)
-		escreva(" e ")
-		escreva(nome_jogador_2)
+		escreva("\nIniciando jogo entre ",nome_jogador_1," e ",nome_jogador_2)
+		
 	}
 
 	funcao placar(cadeia nome_jogador_1, cadeia nome_jogador_2)
@@ -59,6 +57,17 @@ programa
 		escreva("\n=== PLACAR ===")
 		escreva("\n",nome_jogador_1 )
 		escreva("\n",nome_jogador_2 )
+	}
+	
+	funcao exibir_tabuleiro()
+	{
+		caracter jogo[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} }
+		escreva("   0   1   2 \n")
+		escreva("0  ", jogo[0][0], " | ", jogo[0][1], " | ", jogo[0][2], "\n")
+		escreva("   -----------\n")
+		escreva("1  ", jogo[1][0], " | ", jogo[1][1], " | ", jogo[1][2], "\n")
+		escreva("   -----------\n")
+		escreva("2  ", jogo[2][0], " | ", jogo[2][1], " | ", jogo[2][2], "\n")
 	}
 
 	funcao inicio()
