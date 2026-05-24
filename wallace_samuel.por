@@ -68,9 +68,9 @@ programa
 
 		escreva("\nIniciando jogo entre ", nome_jogador_1, " e ", nome_jogador_2)
 
-		para(inteiro i = 0; i < 3; i++)
+		para(i = 0; i < 3; i++)
 		{
-			para(inteiro j = 0; j < 3; j++)
+			para(j = 0; j < 3; j++)
 			{
 				jogo[i][j] = ' '
 			}
