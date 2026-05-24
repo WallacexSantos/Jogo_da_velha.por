@@ -62,7 +62,7 @@ programa
 
 	funcao jogar(cadeia nome_jogador_1, cadeia nome_jogador_2, inteiro partidas, inteiro velhas)
 	{
-		inteiro iniciar_rodada,linha = 0,coluna = 0,jogadas = 0,pontuacao_jogador_1 = 0,pontuacao_jogador_2 = 0
+		inteiro iniciar_rodada,linha = 0,coluna = 0,jogadas = 0,pontuacao_jogador_1 = 0,pontuacao_jogador_2 = 0,i,j
 		caracter jogo[3][3]
 		logico partida_finalizada = falso
 
