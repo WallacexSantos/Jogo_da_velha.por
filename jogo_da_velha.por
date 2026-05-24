@@ -1,12 +1,14 @@
+//Wallace Santos de Paula|Samuel Gomes Avelar
 programa
 {
 	inclua biblioteca Util --> u
-
-	funcao nome()
+	inclua biblioteca Texto --> t
+	funcao nome(inteiro partidas,inteiro velhas)
 	{
 		cadeia nome_jogador_1, nome_jogador_2
-
-		escreva("\n=== BEM VINDO AO JOGO DA VELHA my friend ===\n")
+		inteiro pontuacao_jogador_1 = 0,pontuacao_jogador_2 = 0
+		
+		escreva("\n=== BEM VINDO AO JOGO DA VELHA ===\n")
 
 		escreva("\nDigite o nome do jogador_1 (X): ")
 		leia(nome_jogador_1)
@@ -14,18 +16,18 @@ programa
 		escreva("\nDigite o nome do jogador_2 (O): ")
 		leia(nome_jogador_2)
 
-		menu(nome_jogador_1, nome_jogador_2)
+		menu(nome_jogador_1, nome_jogador_2,pontuacao_jogador_1,pontuacao_jogador_2,partidas,velhas)
 	}
 
-	funcao menu(cadeia nome_jogador_1, cadeia nome_jogador_2)
+	funcao menu(cadeia nome_jogador_1, cadeia nome_jogador_2,inteiro &pontuacao_jogador_1,inteiro &pontuacao_jogador_2, inteiro &partidas, inteiro &velhas)
 	{
 		inteiro opcao
 
-		escreva("\n  =====================")
-		escreva("\n  |1 - Jogar          |")
-		escreva("\n  |2 - Olhar o placar |")
-		escreva("\n  |3 - Sair           |")
-		escreva("\n  =====================")
+		escreva("\n  ================================")
+		escreva("\n  |1  - Jogar e se divertir       |")
+		escreva("\n  |2  - Olhar o placar de pontos  |")
+		escreva("\n  |3  - Sair e fechar             |")
+		escreva("\n  ================================")
 		escreva("\n  Digite a sua opção: ")
 
 		leia(opcao)
@@ -43,22 +45,24 @@ programa
 		escolha(opcao)
 		{
 			caso 1:
-				jogar(nome_jogador_1, nome_jogador_2)
+				jogar(nome_jogador_1, nome_jogador_2,partidas,velhas)
 			pare
 
 			caso 2:
-				placar(nome_jogador_1, nome_jogador_2)
+				placar(nome_jogador_1, nome_jogador_2, pontuacao_jogador_1, pontuacao_jogador_2, partidas, velhas)
 			pare
 
 			caso 3:
+				escreva("\nFoi realizado: ",partidas," partidas")
+				escreva("\nAconteceu: ",velhas," velhas")
 				escreva("\nSaindo do jogo...")
 			pare
 		}
 	}
 
-	funcao jogar(cadeia nome_jogador_1, cadeia nome_jogador_2)
+	funcao jogar(cadeia nome_jogador_1, cadeia nome_jogador_2, inteiro partidas, inteiro velhas)
 	{
-		inteiro iniciar_rodada,linha = 0,coluna = 0,jogadas = 0
+		inteiro iniciar_rodada,linha = 0,coluna = 0,jogadas = 0,pontuacao_jogador_1 = 0,pontuacao_jogador_2 = 0
 		caracter jogo[3][3]
 		logico partida_finalizada = falso
 
@@ -106,15 +110,20 @@ programa
 
 			se(verificar_vitoria(jogo, 'X'))
 			{
-				escreva("\n", nome_jogador_1, " venceu!")
+				escreva("\n", t.caixa_alta(nome_jogador_1), " VENCEU!")
+				pontuacao_jogador_1++
+				partidas++
 				partida_finalizada = verdadeiro
 			}
 			senao
 			{
 				se(jogadas == 9)
 				{
-					escreva("\nEMPATE!")
+					escreva("\nDEU VELHA!")
+					velhas++
+					partidas++
 					partida_finalizada = verdadeiro
+					
 				}
 				senao
 				{
@@ -129,12 +138,16 @@ programa
 
 					se(verificar_vitoria(jogo, 'O'))
 					{
-						escreva("\n", nome_jogador_2, " venceu!")
+						escreva("\n", t.caixa_alta(nome_jogador_2), " VENCEU!")
+						pontuacao_jogador_2++
+						partidas++
 						partida_finalizada = verdadeiro
 					}senao{
 						se(jogadas == 9)
 						{
-							escreva("\nEMPATE!")
+							escreva("\nDEU VELHA!")
+							partidas++
+							velhas++
 							partida_finalizada = verdadeiro
 						}
 					}
@@ -142,7 +155,7 @@ programa
 			}
 		}
 		u.aguarde(500)
-		menu(nome_jogador_1,nome_jogador_2)
+		menu(nome_jogador_1,nome_jogador_2,pontuacao_jogador_1,pontuacao_jogador_2,partidas,velhas)
 	}
 
 	funcao logico verificar_vitoria(caracter jogo[][], caracter simbolo)
@@ -177,11 +190,20 @@ programa
 		retorne falso
 	}
 
-	funcao placar(cadeia nome_jogador_1, cadeia nome_jogador_2)
+	funcao placar(cadeia nome_jogador_1, cadeia nome_jogador_2,inteiro &pontuacao_jogador_1,inteiro &pontuacao_jogador_2,inteiro &partidas,inteiro &velhas)
 	{
-		escreva("\n=== PLACAR ===")
-		escreva("\n", nome_jogador_1)
-		escreva("\n", nome_jogador_2)
+		cadeia voltar
+		
+		limpa()
+	       escreva("\n |=========================================================|")
+            escreva("\n |========================= PLACAR ========================|")
+	       escreva("\n |p1 -", nome_jogador_1," esta com: ",pontuacao_jogador_1," ponto|")
+	       escreva("\n |p2 -", nome_jogador_2," esta com: ",pontuacao_jogador_2," ponto|")
+            escreva("\n |==========================================================|")
+				         escreva("\nAperte qualquer tecla para retornar: ")
+		leia(voltar)
+		menu(nome_jogador_1, nome_jogador_2,pontuacao_jogador_1,pontuacao_jogador_2,partidas,velhas)
+		
 	}
 
 	funcao caracter exibir_tabuleiro(caracter jogo[][])
@@ -230,6 +252,7 @@ programa
 
 	funcao inicio()
 	{
-		nome()
+		inteiro partidas=0,velhas=0
+		nome(partidas,velhas)
 	}
 }
