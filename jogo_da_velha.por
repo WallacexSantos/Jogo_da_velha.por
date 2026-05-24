@@ -53,17 +53,33 @@ programa
 
 	funcao jogar(cadeia nome_jogador_1, cadeia nome_jogador_2)
 	{	
-		inteiro iniciar_rodada
-
+		inteiro iniciar_rodada,linha=0,coluna=0
+		caracter jogo[3][3]
+		logico partida_finalizada = falso
+		
 		escreva("\nIniciando jogo entre ",nome_jogador_1," e ",nome_jogador_2)
-		exibir_tabuleiro()
+		para(inteiro i = 0; i < 3; i++)
+		{
+			para(inteiro j = 0; j < 3; j++)
+			{
+				jogo[i][j] = ' '
+			}
+		}
+		exibir_tabuleiro(jogo)
 		iniciar_rodada = u.sorteia(1,2)
 		se(iniciar_rodada == 1){
 			escreva(nome_jogador_1," começara a partida")
 		}senao{
 			escreva(nome_jogador_2," começara a partida")
 		}
-		
+			enquanto(partida_finalizada == falso){
+			escolher_casa(jogo,coluna,linha)
+			jogo [linha-1] [coluna-1] = 'X'
+			exibir_tabuleiro(jogo)
+			escolher_casa(jogo,coluna,linha)
+			jogo [linha-1] [coluna-1] = 'O'
+			exibir_tabuleiro(jogo)
+			}
 	}
 
 	funcao placar(cadeia nome_jogador_1, cadeia nome_jogador_2)
@@ -73,15 +89,38 @@ programa
 		escreva("\n",nome_jogador_2 )
 	}
 	
-	funcao exibir_tabuleiro()
+	funcao caracter exibir_tabuleiro(caracter jogo[][])
 	{
-		caracter jogo[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} }
 		escreva("\n   1   2   3 \n")
 		escreva("1  ", jogo[0][0], " | ", jogo[0][1], " | ", jogo[0][2], "\n")
 		escreva("   -----------\n")
 		escreva("2  ", jogo[1][0], " | ", jogo[1][1], " | ", jogo[1][2], "\n")
 		escreva("   -----------\n")
 		escreva("3  ", jogo[2][0], " | ", jogo[2][1], " | ", jogo[2][2], "\n")
+		retorne jogo[2][2]
+	}
+
+	funcao escolher_casa(caracter jogo[][],inteiro &linha,inteiro &coluna)
+	{
+		escreva("\nEscolha a linha: ")
+		leia(linha)
+		 enquanto(linha<1 ou linha>3){
+			escreva("\nLinha digitada invalida, digite uma entre 1 e 3: ")
+			leia(linha)
+		 }
+		escreva("\nEscolha a coluna: ")
+		leia(coluna)
+		 enquanto(coluna<1 ou coluna>3){
+			escreva("\nColuna digitada invalida, digite uma entre 1 e 3: ")
+			leia(coluna)
+		  }
+		enquanto (jogo[linha-1] [coluna-1] != ' '){
+		  	escreva("\nA casa ja esta preenchida, escolha outra casa")
+		  	escreva("\nEscolha a linha: ")
+			leia(linha)
+			escreva("\nEscolha a coluna: ")
+			leia(coluna)	
+	 }
 	}
 
 	funcao inicio()
